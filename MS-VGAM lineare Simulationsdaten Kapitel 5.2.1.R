@@ -93,7 +93,7 @@ ms_vgam = function(x, y, fitted_0, N = 2, max_iter = 100, conv_tol = 1e-03) {
       }
       
       lallprobs = log(allprobs)
-      llh = max(lalpha[, nrow(y)]) + log(sum(exp(lalpha[, nrow(y)] - max(lalpha[, nrow(y)])))) #hmmm?
+      llh = max(lalpha[, nrow(y)]) + log(sum(exp(lalpha[, nrow(y)] - max(lalpha[, nrow(y)])))) 
       weights = matrix(NA, N, nrow(y))
       
       for(j in 1:nrow(y)) {
@@ -119,7 +119,7 @@ ms_vgam = function(x, y, fitted_0, N = 2, max_iter = 100, conv_tol = 1e-03) {
       }
       
       conv_crit = abs(llh - old)
-      cat("Iteration = ", i, ", criterion = ", round(conv_crit, 3), "\r", sep = "") #hmmm?'
+      cat("Iteration = ", i, ", criterion = ", round(conv_crit, 3), "\r", sep = "") 
       
       if(conv_crit < conv_tol | i == max_iter) {
         if(i == max_iter) {

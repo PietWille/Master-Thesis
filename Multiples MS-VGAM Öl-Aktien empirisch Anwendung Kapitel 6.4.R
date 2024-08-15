@@ -47,7 +47,7 @@ ms_vgam = function(x, y, fitted_0, delta_0, gamma_0, N = 2, max_iter = 100, conv
       for(j in 1:N) {
         for(t in 1:T) {
           allprobs[t, j] = dmvnorm(y[t,], mean = fitted_next[[j]][t,],
-                                   sigma = sigma)                               # Wir könnten hier zu Verallgemeinerung noch eine Variable einfügen, die man in die Funktion einfügen muss, um die Density zuberechnen
+                                   sigma = sigma)                               
         }
       }
       
@@ -100,7 +100,7 @@ ms_vgam = function(x, y, fitted_0, delta_0, gamma_0, N = 2, max_iter = 100, conv
       ind = weights
       
       for(j in 1:N){                                                            
-        mod[[j]] = vgam(y ~ s(x1) + s(x2), weights = ind[j,], family = uninormal)        # können wir diesen Schritt irgendwie automatisieren?
+        mod[[j]] = vgam(y ~ s(x1) + s(x2), weights = ind[j,], family = uninormal)        
         for (m in 1:xdim) {
           fitted_next[[j]][, m] = as.vector(fitted(mod[[j]])[, m])          
         }

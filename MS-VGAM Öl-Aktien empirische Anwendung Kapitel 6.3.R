@@ -64,7 +64,7 @@ WTI = select(WTI, Date, Close)
 WTI = WTI %>% rename(CloseWTI = Close)
 
 
-## Datan zusammenfügen
+## Daten zusammenfügen
 
 data = merge(Shell, BP, by = "Date", all = TRUE)
 data = merge(data, TE, by = "Date", all = TRUE)

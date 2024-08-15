@@ -23,7 +23,7 @@ library(ggthemes)
 
 set.seed(35)
 
-### Funktion, welche das the Markov-switching Modell mit der VGAM Funktion (also MS-VGAM) mit multiplen Regressoren schätzt
+### Funktion, welche das Markov-switching Modell mit der VGAM Funktion (also MS-VGAM) mit multiplen Regressoren schätzt
 ms_vgam = function(x, y, fitted_0, delta_0, gamma_0, N = 2, max_iter = 100, conv_tol = 1e-03) { 
   delta = delta_0
   gamma = gamma_0

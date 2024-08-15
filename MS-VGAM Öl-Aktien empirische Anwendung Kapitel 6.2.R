@@ -71,7 +71,8 @@ data = merge(data, EXX, by = "Date", all = TRUE)
 data = merge(data, WTI, by = "Date", all = TRUE)
 
 
-# remove NA´s und set Date
+## Datenaufbereitung
+
 data = na.omit(data)
 data = subset(x = data, subset = CloseWTI>0)
 data$Date = as.Date(data$Date)
@@ -107,7 +108,7 @@ Farbe1 = "green"
 Farbe2 = "red"
 
 
-### Function that fits the Markov-switching mit VGAM also MS-VGAM mit einem Regressor
+### Funktion, welche das Markov-switching Modell mit der VGAM Funktion (also MS-VGAM) mit einem Regressor schätzt
 ms_vgam = function(x, y, fitted_0, delta_0, gamma_0, N = 2, max_iter = 100, conv_tol = 1e-03) { 
   delta = delta_0
   gamma = gamma_0

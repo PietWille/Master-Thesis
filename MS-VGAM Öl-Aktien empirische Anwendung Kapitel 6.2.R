@@ -43,9 +43,9 @@ BP = BP %>% rename(CloseBP = Close)
 
 
 # Total Energie
-TTE = download_data(symbol ="TTE", from = Boundary, to = Boundaryup)
-TTE = select(TE, Date, Close)
-TTE = TTE %>% rename(CloseTE = Close)
+TE = download_data(symbol ="TTE", from = Boundary, to = Boundaryup)
+TE = select(TE, Date, Close)
+TE = TE %>% rename(CloseTE = Close)
 
 
 # Exxon Mobil
@@ -314,10 +314,10 @@ grid.arrange(CShellplot, CBPplot, CTEplot, CEXXplot, ncol = 2)
 
 
 
-### Pseudoresiduan
+### Pseudoresiduen
 
 Zustandswahrscheinlichkeiten = mod$state_probs
-x_vals = normal_density = standardized_pseudo_res = pseudo_res = PMF1 = PMF2 = matrix(NA, nrow = T, ncol = ncol(y))
+x_vals = normal_density = standardisierte_pseudo_res = pseudo_res = PMF1 = PMF2 = matrix(NA, nrow = T, ncol = ncol(y))
 means1 = coef(mod$mod[[1]], matrix = TRUE)[1,c(1,3,5,7)]
 sds1 = coef(mod$mod[[1]], matrix = TRUE)[1,c(2,4,6,8)]
 means2 = coef(mod$mod[[2]], matrix = TRUE)[1,c(1,3,5,7)]
@@ -337,35 +337,35 @@ for (i in 1:ncol(y)) {
                     mean = means2[i], 
                     sd = exp(sds2[i])^2)
   
-  # Berechnung der Pseudoresiduan
+  # Berechnung der Pseudoresiduen
   pseudo_res[,i] = qnorm(Zustandswahrscheinlichkeiten[1,] * PMF1[,i] + Zustandswahrscheinlichkeiten[2,] * PMF2[,i]) 
   
-  ## Standartisieren der Pseudoresiduan
+  ## Standartisieren der Pseudoresiduen
   
-  # Berechne Mittelwert und Standardabweichung der Pseudoresiduan
+  # Berechne Mittelwert und Standardabweichung der Pseudoresiduen
   mean_pseudo_res[i] = mean(pseudo_res[,i])
   sd_pseudo_res[i] = sd(pseudo_res[,i])
   
-  # Standardisiere die Pseudoresiduan
-  standardized_pseudo_res[,i] = (pseudo_res[,i] - mean_pseudo_res[i]) / sd_pseudo_res[i]
+  # Standardisiere die Pseudoresiduen
+  standardisierte_pseudo_res[,i] = (pseudo_res[,i] - mean_pseudo_res[i]) / sd_pseudo_res[i]
   
   ## Histo mit Standardnormalverteilung
   
-  # Berechne die Normalverteilungskurve für den Bereich der standardisierten Pseudoresiduan
-  x_vals[,i] = seq(min(standardized_pseudo_res[,i]), max(standardized_pseudo_res[,i]), length = T)
+  # Berechne die Normalverteilungskurve für den Bereich der standardisierten Pseudoresiduen
+  x_vals[,i] = seq(min(standardisierte_pseudo_res[,i]), max(standardisierte_pseudo_res[,i]), length = T)
   normal_density[,i] = dnorm(x_vals[,i])
   
-  # Histogramm der standardisierten Pseudoresiduan
-  hist(standardized_pseudo_res[,i], freq = FALSE, breaks = 30, 
-       main = paste("Histogram der Pseudoresiduan von", histname[i]), 
-       xlab = "Standardized Pseudoresiduan")
+  # Histogramm der standardisierten Pseudoresiduen
+  hist(standardisierte_pseudo_res[,i], freq = FALSE, breaks = 30, 
+       main = paste("Histogram der Pseudoresiduen von", histname[i]), 
+       xlab = "Standardisierte Pseudoresiduen")
   
   # Zeichne die Normalverteilungskurve in das Histogramm
   lines(x_vals[,i], normal_density[,i], col = "red", lwd = 2)
   
 }
 
-# QQ-Plot der Pseudoresiduan
+# QQ-Plot der Pseudoresiduen
 
 par(mfrow = c(sqrt(ncol(y)), sqrt(ncol(y))))
 
